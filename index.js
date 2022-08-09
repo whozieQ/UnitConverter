@@ -1,8 +1,17 @@
 
 const mToft = 3.281
-const lTogal = 0.264
-const kgTolb = 2.204
+const lTogal = 0.26417
+const kgTolb = 2.2046
 
+const Units = {
+    ft: "feet",
+    m:  "meters",
+    l:  "liters",
+    gal:"gallons",
+    kg: "kilograms",
+    lb: "pounds"
+
+}
 const convertEl = document.getElementById("convertThis")
 const convertBtn = document.getElementById("convert-btn")
 const lengthResult = document.getElementById("length-result")
@@ -13,15 +22,16 @@ let requestNum = 0
 
 convertBtn.addEventListener("click", function(){
     requestNum = convertEl.value
-    lengthResult.textContent = render("meters", "feet")
-    volumeResult.textContent = render("liters", "gallons")
-    massResult.textContent = render("kilograms", "pounds")
+    lengthResult.textContent = generateText(Units.m, Units.ft)
+    volumeResult.textContent = generateText(Units.l, Units.gal)
+    massResult.textContent = generateText(Units.kg, Units.lb)
 })
 
-function render(metric, imperial){
+function generateText(metric, imperial){
 
-    let message = `${requestNum} ${metric} = ${convert(requestNum, metric, imperial)} ${imperial} | ${requestNum} ${imperial} = ${convert(requestNum, imperial, metric)} ${metric}`
-    return message
+    let metricInfo = `${requestNum} ${metric} = ${convert(requestNum, metric, imperial)} ${imperial}`
+    let imperialInfo = `${requestNum} ${imperial} = ${convert(requestNum, imperial, metric)} ${metric}`
+    return metricInfo + " | " + imperialInfo
 }
 
 function convert(num, from, to){
